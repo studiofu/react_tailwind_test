@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react'
 import './App.css';
+import usePlaceHolder from './hooks/usePlaceHolder';
 
 function App() {
+  
   const [open, setOpen] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
 
@@ -13,7 +15,9 @@ function App() {
   useEffect(() => {
     console.log('add(1, 2)', add(1, 2));
   }, [add]);
-  
+
+
+  const { data, isError, isLoading } = usePlaceHolder();
 
   const handleClick = () => {
     setOpen(!open);
@@ -85,7 +89,19 @@ function App() {
       >
         I will fade in and out
       </Transition>
-    </>        
+    </>       
+
+    <>
+    {isLoading && <div>Loading...</div>}
+    {isError && <div>Error</div>}
+
+    {data && data.map((item) => (
+      <div key={item.id}>
+        <div>{item.title}</div>
+        </div>        
+    ))}
+      
+    </> 
     </div>
   );
 }

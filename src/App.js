@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react'
 import './App.css';
-import usePlaceHolder from './hooks/usePlaceHolder';
+//import usePlaceHolder from './hooks/usePlaceHolder';
+import useAAA from './hooks/useAAA';
 
-function App() {
+function  App()  {
   
   const [open, setOpen] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
@@ -15,13 +16,20 @@ function App() {
   useEffect(() => {
     console.log('add(1, 2)', add(1, 2));
   }, [add]);
-
-
-  const { data, isError, isLoading } = usePlaceHolder();
+  
 
   const handleClick = () => {
     setOpen(!open);
   }
+
+  const a = useAAA();
+
+  const b = a.then((res) => {
+    //console.log('app a:' + res);
+    return res;
+  })
+
+  console.log('app a:' + a);
 
   return (
     <div className={`
@@ -34,7 +42,7 @@ function App() {
         <button onClick={() => handleClick()}>click me</button>
         <div className='underline text-sm'>hello</div>
         <div className='
-          w-[300px]
+          w-[200px]
           h-20
           bg-sky-200
           rounded-md
@@ -43,7 +51,7 @@ function App() {
           hover:bg-slate-400
           hover:scale-75
           hover:rotate-12
-          hover:rounded-lg
+          hover:rounded-lg          
           hover:text-white
           cursor-pointer
           transition
@@ -53,7 +61,6 @@ function App() {
           top-[500px]
           left-20
           text-opacity-10
-          
         '>1111111111</div>
         <div>2222222222</div>
 
@@ -91,17 +98,6 @@ function App() {
       </Transition>
     </>       
 
-    <>
-    {isLoading && <div>Loading...</div>}
-    {isError && <div>Error</div>}
-
-    {data && data.map((item) => (
-      <div key={item.id}>
-        <div>{item.title}</div>
-        </div>        
-    ))}
-      
-    </> 
     </div>
   );
 }

@@ -5,6 +5,8 @@ import './App.css';
 import useAAA from './hooks/useAAA';
 import Box from './components/Box';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useBookStore } from './hooks/useBook';
+
 
 const POSTS = [
   { id: 1, title: 'Post 1' },
@@ -20,7 +22,12 @@ function wait(duration) {
   });
 }
 
+
+
 function  App()  {
+
+  const books = useBookStore(state => state.books);
+  const addBook = useBookStore(state => state.addBook);
   
   const [open, setOpen] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
@@ -38,7 +45,17 @@ function  App()  {
     setOpen(!open);
   }
 
+  function randomUUID() { 
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }  
+
   const a = useAAA();
+
+
 
   const b = a.then((res) => {
     //console.log('app a:' + res);
@@ -205,8 +222,25 @@ function  App()  {
         }} >add post</button>
       </div>
 
+
+        <div>
+          {books.map(book => (
+            <div key={book.id}>{book.title}</div>
+          ))}
+
+          <div><button onClick={
+            () => {
+              addBook({
+                id: randomUUID(),
+                title: randomUUID()
+            })
+          }}>add book</button></div>
+
+        </div>
+
     </div>
-  );
+
+);
 }
 
 export default App;

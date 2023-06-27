@@ -4,15 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import Main from './pages/Main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
+  <BrowserRouter>
   <QueryClientProvider client={queryClient}>
-    <App />
+    <Routes>    
+      <Route path="/" element={<App />}>
+        <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
+        <Route path="main" element={<Main />} />
+      </Route>      
+    </Routes>
   </QueryClientProvider>
+  </BrowserRouter>
   </React.StrictMode>
 );
 

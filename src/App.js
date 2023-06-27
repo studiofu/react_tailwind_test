@@ -6,7 +6,7 @@ import useAAA from './hooks/useAAA';
 import Box from './components/Box';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useBookStore } from './hooks/useBook';
-
+import { Outlet, Link } from "react-router-dom";
 
 const POSTS = [
   { id: 1, title: 'Post 1' },
@@ -237,7 +237,9 @@ function  App()  {
           }}>add book</button></div>
 
         </div>
-
+        <Link to="/main">Go to Main</Link>
+        <Link to="/home">Go to Home</Link>
+        <Outlet />
     </div>
 
 );
